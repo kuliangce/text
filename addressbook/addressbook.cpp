@@ -11,7 +11,6 @@ Edge edge[N];
 Addr addr[N];
 int level_one, level_two, level_three, level_four;
 int find_next_level(int now, int step) {
-	l = N;
 	int r = -1;
 	for (int i = head[now]; i != 0; i = edge[i].next) {
 		memset(nex, 0, sizeof nex);
@@ -32,7 +31,8 @@ int find_next_level(int now, int step) {
 	return 0;
 }
 void init() {
-	level_one = level_two = level_three = level_four = l = 0;
+	level_one = level_two = level_three = level_four = 0;
+	l = N;
 	memset(level_five, 0, sizeof level_five);
 	memset(level_six, 0, sizeof level_six);
 	memset(level_seven, 0, sizeof level_seven);
