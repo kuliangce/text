@@ -11,20 +11,23 @@ Edge edge[N];
 Addr addr[N];
 int level_one, level_two, level_three, level_four;
 int find_next_level(int now, int step) {
-	int r = -1;
+	int r = -1, L = N;
 	for (int i = head[now]; i != 0; i = edge[i].next) {
 		memset(nex, 0, sizeof nex);
 		int son = edge[i].to;
 		int n = (int)text.length();
 		int m = (int)wcsnlen_s(addr[son].name, 50);
 		int flag = KMP_count(addr[son].name, m, text, n, nex);
-		if (l > flag) {
-			l = flag;
+		if (flag == 0)continue;
+		if (flag == l && step == 4)continue;
+		if (L > flag && flag >= l && L >= l) {
+			L = flag;
 			r = son;
 		}
 		//l = max(l, flag);
 		//if (flag) return son;
 	}
+	if (L != N)l = L;
 	if (r != -1) {
 		return r;
 	}
@@ -32,7 +35,7 @@ int find_next_level(int now, int step) {
 }
 void init() {
 	level_one = level_two = level_three = level_four = 0;
-	l = N;
+	l = 0;
 	memset(level_five, 0, sizeof level_five);
 	memset(level_six, 0, sizeof level_six);
 	memset(level_seven, 0, sizeof level_seven);
