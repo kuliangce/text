@@ -59,7 +59,7 @@ void Level_seven(wstring y, wchar_t s1[], wchar_t s2[], wchar_t s3[], int start)
 			}
 			mark = i + 2;
 		}
-		else if (y[i] == L'ºÅ' || y[i] == L'Åª') {
+		else if (y[i] == L'ºÅ') {
 			uint cha = (uint)y[i - 1];
 			if (cha < 48 || cha > 57)continue;
 			for (int j = mark; j <= i; j++) {

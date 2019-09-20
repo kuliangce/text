@@ -24,6 +24,8 @@ int find_next_level(int now, int step) {
 			L = flag;
 			r = son;
 		}
+		//l = max(l, flag);
+		//if (flag) return son;
 	}
 	if (L != N)l = L;
 	if (r != -1) {
@@ -66,7 +68,7 @@ int main(int argv, char** argc) {
 			for (int i = head[0]; i != 0; i = edge[i].next) {
 				level_two = find_next_level(edge[i].to, 2);
 				if (level_two) {
-					level_one = edge[i].to;
+					if (type == 3)level_one = edge[i].to;
 					break;
 				}
 			}
@@ -76,7 +78,7 @@ int main(int argv, char** argc) {
 			for (int i = head[level_one]; i != 0; i = edge[i].next) {
 				level_three = find_next_level(edge[i].to, 3);
 				if (level_three) {
-					level_two = edge[i].to;
+					if (type == 3)level_two = edge[i].to;
 					break;
 				}
 			}
@@ -86,7 +88,7 @@ int main(int argv, char** argc) {
 			for (int i = head[level_two]; i != 0; i = edge[i].next) {
 				level_four = find_next_level(edge[i].to, 4);
 				if (level_four) {
-					level_three = edge[i].to;
+					if (type == 3)level_three = edge[i].to;
 					break;
 				}
 			}
