@@ -36,7 +36,7 @@ int find_next_level(int now, int step) {
 }
 void dfs(int now, int now_step, int step) {
 	if (step - now_step == 1) {
-		find_next_level(now, step);
+		level[step] = find_next_level(now, step);
 	}
 	else {
 		for (int i = head[now]; i != 0; i = edge[i].next) {
@@ -72,17 +72,17 @@ void init() {
 	memset(name, 0, sizeof name);
 	memset(level, 0, sizeof level);
 }
-int main(int argv, char** argc) {
-	if (argv<3)
+int main(/*int argv, char** argc*/) {
+	/*if (argv<3)
 	{
 		return 0;
-	}
+	}*/
 	int flag = 0;
 	wcout.imbue(locale("chs"));
 	pretreatment(addr, edge, head);
 	suffix(suf);
-	ifstream fin(argc[1]);
-	wofstream fout(argc[2], ios::ate);
+	ifstream fin(/*argc[1]*/"1.txt");
+	wofstream fout(/*argc[2]*/"2.txt", ios::ate);
 	fout.imbue(std::locale(fout.getloc(), new std::codecvt_utf8<wchar_t, 0x10ffff, std::little_endian>));
 	fout << L'[';
 	while (fin >> buf) {
