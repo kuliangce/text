@@ -3,7 +3,8 @@
 #include"print.h"
 #include"utf-8.h"
 const int N = int(1e5) + 7;
-int head[N], nex[205], cnt = 1, id, l;
+int head[N], nex[205], level[10], cnt = 1, id, l;
+uint type;
 wstring text, pro[100];
 wchar_t name[20], phone[20], level_five[210], level_six[105], level_seven[105], suf[20][20], ss[210];
 char buf[505];
@@ -33,6 +34,34 @@ int find_next_level(int now, int step) {
 	}
 	return 0;
 }
+void dfs(int now, int now_step, int step) {
+	if (step - now_step == 1) {
+		find_next_level(now, step);
+	}
+	else {
+		for (int i = head[now]; i != 0; i = edge[i].next) {
+			dfs(edge[i].to, now_step + 1, step);
+			if (level[step]) {
+				if (type == 3)level[now_step + 1] = edge[i].to;
+				return;
+			}
+		}
+	}
+}
+void Find(int step) {
+	int anse = 0, h = -1;
+	for (int i = step - 1; i > 0; i--) {
+		if (level[i]) {
+			anse = level[i], h = i;
+			break;
+		}
+	}
+	if (h == -1)
+		dfs(0, 0, step);
+	else {
+		dfs(anse, h, step);
+	}
+}
 void init() {
 	level_one = level_two = level_three = level_four = 0;
 	l = 0;
@@ -41,6 +70,7 @@ void init() {
 	memset(level_seven, 0, sizeof level_seven);
 	memset(phone, 0, sizeof phone);
 	memset(name, 0, sizeof name);
+	memset(level, 0, sizeof level);
 }
 int main(int argv, char** argc) {
 	if (argv<3)
@@ -60,9 +90,11 @@ int main(int argv, char** argc) {
 		fout << L'{';
 		init();
 		text = Utf82Gbk(buf);
-		uint type = text[0] - 48;
+		type = text[0] - 48;
 		name_and_phonenumber(text, name, phone);
-		level_one = find_next_level(0, 1);
+		Find(1); Find(2); Find(3); Find(4);
+		level_one = level[1], level_two = level[2], level_three = level[3], level_four = level[4];
+		/*level_one = find_next_level(0, 1);
 		if (level_one)level_two = find_next_level(level_one, 2);
 		else {
 			for (int i = head[0]; i != 0; i = edge[i].next) {
@@ -92,7 +124,7 @@ int main(int argv, char** argc) {
 					break;
 				}
 			}
-		}
+		}*/
 		fout << L'"' << L"姓名" << L'"' << L":\""<< name << L"\",";
 		fout << L'"' << L"手机" << L'"' << L":\"" << phone << L"\",";
 		fout << L'"' << L"地址" << L'"' << L":[";
