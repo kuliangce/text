@@ -48,13 +48,14 @@ public class Round {
             poker.print();
             Hd.init(poker);
             nj.Nomal_Judge(poker, Hd, 3);
-            nj.Nomal_Judge(poker, Hd, 2);
-            nj.Nomal_Judge(poker, Hd, 1);
+//            nj.Nomal_Judge(poker, Hd, 2);
+//            nj.Nomal_Judge(poker, Hd, 1);
             EX ex = new EX();
             ex = ex.init(Hd);
             JsonElement jj = json.toJsonTree(ex);
-            Hd.getss(0);
             System.out.println(jj.toString());
+//            Hd.getss(0);
+//            System.out.println(jj.toString());
 //            submit(user, jj.toString());
         }
     }

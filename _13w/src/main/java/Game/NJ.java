@@ -290,6 +290,30 @@ public class NJ{
             return;
         }
     }
+    public static String Special_Judge(Poker poker){
+        boolean flag = false;
+        String ans;
+        int[] num = new int[5];
+        for (int i = 0; i < 5; i++)num[i] = 0;
+        int big = 0, small = 0;
+        for (int i = 1; i <= 13; i++){
+            num[poker.col[i]]++;
+            if (i <= 7)
+                small += poker.col[i];
+            else
+                big += poker.col[i];
+        }
+        if (num[1] == 13)   flag = true;
+        if (poker.col[10] + poker.col[11] + poker.col[12] + poker.col[13] >= 12)    flag = true;
+        if (small == 13 || big == 13)   flag = true;
+        if (num[4] == 3)    flag = true;
+        if (poker.row[0] + poker.row[1] == 13 || poker.row[2] + poker.row[3] == 13) flag = true;
+//        if (num[3] == 2 && ((num[2] == 3 || (num[4] == 1 && num[1] != 3))))
+        if (num[3] + num[4] == 4)   flag = true;
+        if (num[3] == 1 && num[2] + num[4] * 2 == 5)    flag = true;
+        if (num[3] + num[2] + num[4] * 2 == 6)  flag = true;
+        return null;
+    }
     static void analyse(hand_card ex, int x){
         int s, num;
         String c, test;
@@ -310,6 +334,7 @@ public class NJ{
 //        for (int i = 0; i < cnt; i++){
 //            System.out.println(t[i]);
 //        }
+
     }
     static void clr(Poker poker){
         int s, num;
